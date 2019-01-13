@@ -60,6 +60,7 @@
           <slot name="selected-row-actions"></slot>
         </div>
       </div>
+      <div>YOLOYOLOYOLO</div>
       <div class="vgt-fixed-header">
         <table v-if="fixedHeader" :class="tableStyleClasses">
           <!-- Table header -->
@@ -94,35 +95,36 @@
         <simplebar :style="wrapperStyles" data-simplebar-auto-hide="true">
           <table ref="table" :class="tableStyleClasses">
             <!-- Table header -->
-            <thead
-              v-if="!fixedHeader"
-              is="vgt-table-header"
-              ref="table-header-primary"
-              @on-toggle-select-all="toggleSelectAll"
-              @on-sort-change="changeSort"
-              @filter-changed="filterRows"
-              :columns="columns"
-              :line-numbers="lineNumbers"
-              :selectable="selectable"
-              :all-selected="allSelected"
-              :all-selected-indeterminate="allSelectedIndeterminate"
-              :mode="mode"
-              :sortable="sortable"
-              :typed-columns="typedColumns"
-              :getClasses="getClasses"
-              :searchEnabled="searchEnabled"
-            >
-              <template slot="table-column" slot-scope="props">
-                <slot name="table-column" :column="props.column">
-                  <span>{{props.column.label}}</span>
-                </slot>
-              </template>
-            </thead>
+            <div v-if="!fixedHeader">
+              <thead
+                is="vgt-table-header"
+                ref="table-header-primary"
+                @on-toggle-select-all="toggleSelectAll"
+                @on-sort-change="changeSort"
+                @filter-changed="filterRows"
+                :columns="columns"
+                :line-numbers="lineNumbers"
+                :selectable="selectable"
+                :all-selected="allSelected"
+                :all-selected-indeterminate="allSelectedIndeterminate"
+                :mode="mode"
+                :sortable="sortable"
+                :typed-columns="typedColumns"
+                :getClasses="getClasses"
+                :searchEnabled="searchEnabled"
+              >
+                <template slot="table-column" slot-scope="props">
+                  <slot name="table-column" :column="props.column">
+                    <span>{{props.column.label}}</span>
+                  </slot>
+                </template>
+              </thead>
+            </div>
 
             <!-- Table body starts here -->
             <tbody v-for="(headerRow, index) in paginated" :key="index">
               <!-- if group row header is at the top -->
-              <!-- <vgt-header-row
+              <vgt-header-row
                 v-if="groupHeaderOnTop"
                 :header-row="headerRow"
                 :columns="columns"
@@ -141,7 +143,7 @@
                     :row="props.row"
                   ></slot>
                 </template>
-              </vgt-header-row>-->
+              </vgt-header-row>
               <!-- normal rows here. we loop over all rows -->
               <tr
                 v-for="(row, index) in headerRow.children"
