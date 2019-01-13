@@ -8100,9 +8100,13 @@
     },
     staticRenderFns: [],
     _scopeId: 'data-v-0c8b4370',
-    name: 'VgtTableHeader',
+    name: "VgtTableHeader",
     props: {
       lineNumbers: {
+        default: false,
+        type: Boolean
+      },
+      hidden: {
         default: false,
         type: Boolean
       },
@@ -8177,14 +8181,14 @@
     computed: {},
     methods: {
       reset: function reset() {
-        this.$refs['filter-row'].reset(true);
+        this.$refs["filter-row"].reset(true);
       },
       toggleSelectAll: function toggleSelectAll() {
-        this.$emit('on-toggle-select-all');
+        this.$emit("on-toggle-select-all");
       },
       isSortableColumn: function isSortableColumn(column) {
         var sortable = column.sortable;
-        var isSortable = typeof sortable === 'boolean' ? sortable : this.sortable;
+        var isSortable = typeof sortable === "boolean" ? sortable : this.sortable;
         return isSortable;
       },
       sort: function sort$$1(e, column) {
@@ -8197,30 +8201,30 @@
           this.sorts = primarySort(this.sorts, column);
         }
 
-        this.$emit('on-sort-change', this.sorts);
+        this.$emit("on-sort-change", this.sorts);
       },
       setInitialSort: function setInitialSort(sorts) {
         this.sorts = sorts;
-        this.$emit('on-sort-change', this.sorts);
+        this.$emit("on-sort-change", this.sorts);
       },
       getColumnSort: function getColumnSort(column) {
         for (var i = 0; i < this.sorts.length; i += 1) {
           if (this.sorts[i].field === column.field) {
-            return this.sorts[i].type || 'asc';
+            return this.sorts[i].type || "asc";
           }
         }
 
         return null;
       },
       getHeaderClasses: function getHeaderClasses(column, index) {
-        var classes = lodash_assign({}, this.getClasses(index, 'th'), {
-          'sorting sorting-desc': this.getColumnSort(column) === 'desc',
-          'sorting sorting-asc': this.getColumnSort(column) === 'asc'
+        var classes = lodash_assign({}, this.getClasses(index, "th"), {
+          "sorting sorting-desc": this.getColumnSort(column) === "desc",
+          "sorting sorting-asc": this.getColumnSort(column) === "asc"
         });
         return classes;
       },
       filterRows: function filterRows(columnFilters) {
-        this.$emit('filter-changed', columnFilters);
+        this.$emit("filter-changed", columnFilters);
       },
       getWidthStyle: function getWidthStyle(dom) {
         if (window && window.getComputedStyle) {
@@ -8231,13 +8235,15 @@
         }
 
         return {
-          width: 'auto'
+          width: "auto"
         };
       },
       setColumnStyles: function setColumnStyles() {
         var _this = this;
 
-        var colStyles = [];
+        var colStyles = [{
+          height: this.hidden ? "0px" : "auto"
+        }];
         if (this.timer) clearTimeout(this.timer);
         this.timer = setTimeout(function () {
           for (var i = 0; i < _this.columns.length; i++) {
@@ -8249,7 +8255,7 @@
               colStyles.push(_this.getWidthStyle(cell));
             } else {
               colStyles.push({
-                width: _this.columns[i].width ? _this.columns[i].width : 'auto'
+                width: _this.columns[i].width ? _this.columns[i].width : "auto"
               });
             }
           }
@@ -8259,7 +8265,7 @@
       },
       getColumnStyle: function getColumnStyle(column, index) {
         var styleObject = {
-          width: column.width ? column.width : 'auto'
+          width: column.width ? column.width : "auto"
         }; //* if fixed header we need to get width from original table
 
         if (this.tableRef) {
@@ -8274,14 +8280,14 @@
       }
     },
     mounted: function mounted() {
-      window.addEventListener('resize', this.setColumnStyles);
+      window.addEventListener("resize", this.setColumnStyles);
     },
     beforeDestroy: function beforeDestroy() {
       if (this.timer) clearTimeout(this.timer);
-      window.removeEventListener('resize', this.setColumnStyles);
+      window.removeEventListener("resize", this.setColumnStyles);
     },
     components: {
-      'vgt-filter-row': VgtFilterRow
+      "vgt-filter-row": VgtFilterRow
     }
   };
 
@@ -15390,10 +15396,6 @@
       }, [_c('table', {
         ref: "table",
         class: _vm.tableStyleClasses
-      }, [_c('div', {
-        style: {
-          height: _vm.fixedHeader ? '0px' : 'auto'
-        }
       }, [_c("vgt-table-header", {
         ref: "table-header-primary",
         tag: "thead",
@@ -15407,7 +15409,8 @@
           "sortable": _vm.sortable,
           "typed-columns": _vm.typedColumns,
           "getClasses": _vm.getClasses,
-          "searchEnabled": _vm.searchEnabled
+          "searchEnabled": _vm.searchEnabled,
+          "hidden": !_vm.fixedHeader
         },
         on: {
           "on-toggle-select-all": _vm.toggleSelectAll,
@@ -15422,7 +15425,7 @@
             })];
           }
         }])
-      })]), _vm._v(" "), _vm._l(_vm.paginated, function (headerRow, index) {
+      }), _vm._v(" "), _vm._l(_vm.paginated, function (headerRow, index) {
         return _c('tbody', {
           key: index
         }, [_vm.groupHeaderOnTop ? _c('vgt-header-row', {
