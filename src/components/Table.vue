@@ -94,31 +94,30 @@
         <simplebar :style="wrapperStyles" data-simplebar-auto-hide="true">
           <table ref="table" :class="tableStyleClasses">
             <!-- Table header -->
-            <div v-if="!fixedHeader">
-              <thead
-                is="vgt-table-header"
-                ref="table-header-primary"
-                @on-toggle-select-all="toggleSelectAll"
-                @on-sort-change="changeSort"
-                @filter-changed="filterRows"
-                :columns="columns"
-                :line-numbers="lineNumbers"
-                :selectable="selectable"
-                :all-selected="allSelected"
-                :all-selected-indeterminate="allSelectedIndeterminate"
-                :mode="mode"
-                :sortable="sortable"
-                :typed-columns="typedColumns"
-                :getClasses="getClasses"
-                :searchEnabled="searchEnabled"
-              >
-                <template slot="table-column" slot-scope="props">
-                  <slot name="table-column" :column="props.column">
-                    <span>{{props.column.label}}</span>
-                  </slot>
-                </template>
-              </thead>
-            </div>
+            <thead
+              v-if="!fixedHeader"
+              is="vgt-table-header"
+              ref="table-header-primary"
+              @on-toggle-select-all="toggleSelectAll"
+              @on-sort-change="changeSort"
+              @filter-changed="filterRows"
+              :columns="columns"
+              :line-numbers="lineNumbers"
+              :selectable="selectable"
+              :all-selected="allSelected"
+              :all-selected-indeterminate="allSelectedIndeterminate"
+              :mode="mode"
+              :sortable="sortable"
+              :typed-columns="typedColumns"
+              :getClasses="getClasses"
+              :searchEnabled="searchEnabled"
+            >
+              <template slot="table-column" slot-scope="props">
+                <slot name="table-column" :column="props.column">
+                  <span>{{props.column.label}}</span>
+                </slot>
+              </template>
+            </thead>
 
             <!-- Table body starts here -->
             <tbody v-for="(headerRow, index) in paginated" :key="index">

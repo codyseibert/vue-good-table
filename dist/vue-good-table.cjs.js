@@ -1326,7 +1326,7 @@ var VueGoodTable = {
     }, [_c('table', {
       ref: "table",
       class: _vm.tableStyleClasses
-    }, [!_vm.fixedHeader ? _c('div', [_c("vgt-table-header", {
+    }, [!_vm.fixedHeader ? _c("vgt-table-header", {
       ref: "table-header-primary",
       tag: "thead",
       attrs: {
@@ -1354,7 +1354,7 @@ var VueGoodTable = {
           })];
         }
       }])
-    })]) : _vm._e(), _vm._v(" "), _vm._l(_vm.paginated, function (headerRow, index$$1) {
+    }) : _vm._e(), _vm._v(" "), _vm._l(_vm.paginated, function (headerRow, index$$1) {
       return _c('tbody', {
         key: index$$1
       }, [_vm.groupHeaderOnTop ? _c('vgt-header-row', {
