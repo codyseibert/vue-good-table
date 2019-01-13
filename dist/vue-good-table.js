@@ -15344,7 +15344,7 @@
         }
       }, [_vm._v(_vm._s(_vm.clearSelectionText))]), _vm._v(" "), _c('div', {
         staticClass: "vgt-selection-info-row__actions vgt-pull-right"
-      }, [_vm._t("selected-row-actions")], 2)]) : _vm._e(), _vm._v(" "), _c('div', [_vm._v("YOLOYOLOYOLO")]), _vm._v(" "), _c('div', {
+      }, [_vm._t("selected-row-actions")], 2)]) : _vm._e(), _vm._v(" "), _c('div', {
         staticClass: "vgt-fixed-header"
       }, [_vm.fixedHeader ? _c('table', {
         class: _vm.tableStyleClasses

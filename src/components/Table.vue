@@ -60,7 +60,6 @@
           <slot name="selected-row-actions"></slot>
         </div>
       </div>
-      <div>YOLOYOLOYOLO</div>
       <div class="vgt-fixed-header">
         <table v-if="fixedHeader" :class="tableStyleClasses">
           <!-- Table header -->
