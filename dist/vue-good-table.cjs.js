@@ -1357,28 +1357,7 @@ var VueGoodTable = {
     }) : _vm._e(), _vm._v(" "), _vm._l(_vm.paginated, function (headerRow, index$$1) {
       return _c('tbody', {
         key: index$$1
-      }, [_vm.groupHeaderOnTop ? _c('vgt-header-row', {
-        attrs: {
-          "header-row": headerRow,
-          "columns": _vm.columns,
-          "line-numbers": _vm.lineNumbers,
-          "selectable": _vm.selectable,
-          "collect-formatted": _vm.collectFormatted,
-          "formatted-row": _vm.formattedRow,
-          "get-classes": _vm.getClasses,
-          "full-colspan": _vm.fullColspan
-        },
-        scopedSlots: _vm._u([{
-          key: "table-header-row",
-          fn: function fn(props) {
-            return _vm.hasHeaderRowTemplate ? [_vm._t("table-header-row", null, {
-              column: props.column,
-              formattedRow: props.formattedRow,
-              row: props.row
-            })] : undefined;
-          }
-        }])
-      }) : _vm._e(), _vm._v(" "), _vm._l(headerRow.children, function (row, index$$1) {
+      }, [_vm._l(headerRow.children, function (row, index$$1) {
         return _c('tr', {
           key: row.originalIndex,
           class: _vm.getRowStyleClass(row),

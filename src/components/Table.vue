@@ -122,7 +122,7 @@
             <!-- Table body starts here -->
             <tbody v-for="(headerRow, index) in paginated" :key="index">
               <!-- if group row header is at the top -->
-              <vgt-header-row
+              <!-- <vgt-header-row
                 v-if="groupHeaderOnTop"
                 :header-row="headerRow"
                 :columns="columns"
@@ -141,7 +141,7 @@
                     :row="props.row"
                   ></slot>
                 </template>
-              </vgt-header-row>
+              </vgt-header-row>-->
               <!-- normal rows here. we loop over all rows -->
               <tr
                 v-for="(row, index) in headerRow.children"
