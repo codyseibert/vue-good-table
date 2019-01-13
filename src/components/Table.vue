@@ -95,33 +95,33 @@
       <div :class="{'vgt-responsive': responsive}">
         <table ref="table" :class="tableStyleClasses">
           <!-- Table header -->
-          <thead
-            is="vgt-table-header"
-            ref="table-header-primary"
-            @on-toggle-select-all="toggleSelectAll"
-            @on-sort-change="sort"
-            @filter-changed="filterRows"
-            :columns="columns"
-            :line-numbers="lineNumbers"
-            :selectable="selectable"
-            :all-selected="allSelected"
-            :all-selected-indeterminate="allSelectedIndeterminate"
-            :mode="mode"
-            :typed-columns="typedColumns"
-            :sort-column="sortColumn"
-            :sort-type="sortType"
-            :isSortableColumn="isSortableColumn"
-            :getClasses="getClasses"
-            :searchEnabled="searchEnabled"
-          >
-            <template slot="table-column" slot-scope="props">
-              <slot name="table-column" :column="props.column">
-                <span>{{props.column.label}}</span>
-              </slot>
-            </template>
-          </thead>
-
           <simplebar :style="wrapperStyles" data-simplebar-auto-hide="true">
+            <thead
+              is="vgt-table-header"
+              ref="table-header-primary"
+              @on-toggle-select-all="toggleSelectAll"
+              @on-sort-change="sort"
+              @filter-changed="filterRows"
+              :columns="columns"
+              :line-numbers="lineNumbers"
+              :selectable="selectable"
+              :all-selected="allSelected"
+              :all-selected-indeterminate="allSelectedIndeterminate"
+              :mode="mode"
+              :typed-columns="typedColumns"
+              :sort-column="sortColumn"
+              :sort-type="sortType"
+              :isSortableColumn="isSortableColumn"
+              :getClasses="getClasses"
+              :searchEnabled="searchEnabled"
+            >
+              <template slot="table-column" slot-scope="props">
+                <slot name="table-column" :column="props.column">
+                  <span>{{props.column.label}}</span>
+                </slot>
+              </template>
+            </thead>
+
             <!-- Table body starts here -->
             <tbody v-for="(headerRow, index) in paginated" :key="index">
               <!-- if group row header is at the top -->
@@ -204,16 +204,16 @@
                 </template>
               </vgt-header-row>
             </tbody>
+            <tbody v-if="showEmptySlot">
+              <tr>
+                <td :colspan="fullColspan">
+                  <slot name="emptystate">
+                    <div class="vgt-center-align vgt-text-disabled">No data for table</div>
+                  </slot>
+                </td>
+              </tr>
+            </tbody>
           </simplebar>
-          <tbody v-if="showEmptySlot">
-            <tr>
-              <td :colspan="fullColspan">
-                <slot name="emptystate">
-                  <div class="vgt-center-align vgt-text-disabled">No data for table</div>
-                </slot>
-              </td>
-            </tr>
-          </tbody>
         </table>
       </div>
       <div class="vgt-wrap__actions-footer">
