@@ -92,10 +92,10 @@
           </thead>
         </table>
       </div>
-      <div :class="{'vgt-responsive': responsive}">
-        <table ref="table" :class="tableStyleClasses">
-          <!-- Table header -->
-          <simplebar :style="wrapperStyles" data-simplebar-auto-hide="true">
+      <simplebar :style="wrapperStyles" data-simplebar-auto-hide="true">
+        <div :class="{'vgt-responsive': responsive}">
+          <table ref="table" :class="tableStyleClasses">
+            <!-- Table header -->
             <thead
               is="vgt-table-header"
               ref="table-header-primary"
@@ -213,9 +213,10 @@
                 </td>
               </tr>
             </tbody>
-          </simplebar>
-        </table>
-      </div>
+          </table>
+        </div>
+      </simplebar>
+
       <div class="vgt-wrap__actions-footer">
         <slot name="table-actions-bottom"></slot>
       </div>

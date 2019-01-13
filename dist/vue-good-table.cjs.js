@@ -1222,18 +1222,18 @@ var VueGoodTable = {
           })];
         }
       }])
-    })]) : _vm._e()]), _vm._v(" "), _c('div', {
+    })]) : _vm._e()]), _vm._v(" "), _c('simplebar', {
+      style: _vm.wrapperStyles,
+      attrs: {
+        "data-simplebar-auto-hide": "true"
+      }
+    }, [_c('div', {
       class: {
         'vgt-responsive': _vm.responsive
       }
     }, [_c('table', {
       ref: "table",
       class: _vm.tableStyleClasses
-    }, [_c('simplebar', {
-      style: _vm.wrapperStyles,
-      attrs: {
-        "data-simplebar-auto-hide": "true"
-      }
     }, [_c("vgt-table-header", {
       ref: "table-header-primary",
       tag: "thead",
@@ -1373,7 +1373,7 @@ var VueGoodTable = {
       }
     }, [_vm._t("emptystate", [_c('div', {
       staticClass: "vgt-center-align vgt-text-disabled"
-    }, [_vm._v("No data for table")])])], 2)])]) : _vm._e()], 2)], 1)]), _vm._v(" "), _c('div', {
+    }, [_vm._v("No data for table")])])], 2)])]) : _vm._e()], 2)])]), _vm._v(" "), _c('div', {
       staticClass: "vgt-wrap__actions-footer"
     }, [_vm._t("table-actions-bottom")], 2), _vm._v(" "), _vm.paginate && _vm.paginateOnBottom ? _vm._t("pagination-bottom", [_c('vgt-pagination', {
       ref: "paginationBottom",
