@@ -9,6 +9,8 @@
     @on-search="onSelectAll"
     @on-row-mouseenter="onMouseover"
     @on-row-mouseleave="onMouseover"
+    max-height="400px"
+    :fixed-header="true"
     :search-options="{
       enabled: false,
     }"
