@@ -15382,20 +15382,12 @@
         class: {
           'vgt-responsive': _vm.responsive
         }
-      }, [_c('simplebar', {
-        style: _vm.wrapperStyles,
-        attrs: {
-          "data-simplebar-auto-hide": "true"
-        }
       }, [_c('table', {
         ref: "table",
         class: _vm.tableStyleClasses
       }, [_c("vgt-table-header", {
         ref: "table-header-primary",
         tag: "thead",
-        staticStyle: {
-          "display": "none"
-        },
         attrs: {
           "columns": _vm.columns,
           "line-numbers": _vm.lineNumbers,
@@ -15421,7 +15413,12 @@
             })];
           }
         }])
-      }), _vm._v(" "), _vm._l(_vm.paginated, function (headerRow, index) {
+      }), _vm._v(" "), _c('simplebar', {
+        style: _vm.wrapperStyles,
+        attrs: {
+          "data-simplebar-auto-hide": "true"
+        }
+      }, _vm._l(_vm.paginated, function (headerRow, index) {
         return _c('tbody', {
           key: index
         }, [_vm.groupHeaderOnTop ? _c('vgt-header-row', {
@@ -15524,13 +15521,13 @@
             }
           }])
         }) : _vm._e()], 2);
-      }), _vm._v(" "), _vm.showEmptySlot ? _c('tbody', [_c('tr', [_c('td', {
+      })), _vm._v(" "), _vm.showEmptySlot ? _c('tbody', [_c('tr', [_c('td', {
         attrs: {
           "colspan": _vm.fullColspan
         }
       }, [_vm._t("emptystate", [_c('div', {
         staticClass: "vgt-center-align vgt-text-disabled"
-      }, [_vm._v("No data for table")])])], 2)])]) : _vm._e()], 2)])], 1), _vm._v(" "), _c('div', {
+      }, [_vm._v("No data for table")])])], 2)])]) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
         staticClass: "vgt-wrap__actions-footer"
       }, [_vm._t("table-actions-bottom")], 2), _vm._v(" "), _vm.paginate && _vm.paginateOnBottom ? _vm._t("pagination-bottom", [_c('vgt-pagination', {
         ref: "paginationBottom",
