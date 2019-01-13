@@ -1320,12 +1320,13 @@ var VueGoodTable = {
     }, [_c('table', {
       ref: "table",
       class: _vm.tableStyleClasses
+    }, [_c('div', {
+      style: {
+        height: _vm.fixedHeader ? '0px' : 'auto'
+      }
     }, [_c("vgt-table-header", {
       ref: "table-header-primary",
       tag: "thead",
-      style: {
-        height: _vm.fixedHeader ? '0px' : 'auto'
-      },
       attrs: {
         "columns": _vm.columns,
         "line-numbers": _vm.lineNumbers,
@@ -1351,7 +1352,7 @@ var VueGoodTable = {
           })];
         }
       }])
-    }), _vm._v(" "), _vm._l(_vm.paginated, function (headerRow, index$$1) {
+    })]), _vm._v(" "), _vm._l(_vm.paginated, function (headerRow, index$$1) {
       return _c('tbody', {
         key: index$$1
       }, [_vm.groupHeaderOnTop ? _c('vgt-header-row', {
