@@ -1,15 +1,17 @@
 /**
- * vue-good-table v2.14.6
+ * vue-good-table v2.14.7
  * (c) 2018-present xaksis <shay@crayonbits.com>
  * https://github.com/xaksis/vue-good-table
  * Released under the MIT License.
  */
 
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (factory((global.vueGoodTable = {})));
-}(this, (function (exports) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('simplebar-vue')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'simplebar-vue'], factory) :
+  (factory((global.vueGoodTable = {}),global.simplebar));
+}(this, (function (exports,simplebar) { 'use strict';
+
+  simplebar = simplebar && simplebar.hasOwnProperty('default') ? simplebar['default'] : simplebar;
 
   function _typeof(obj) {
     if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -5519,7 +5521,7 @@
     compare: function compare(x, y) {
       function cook(d) {
         if (typeof d === 'undefined' || d === null) return '';
-        return d.toLowerCase();
+        return diacriticless(d.toLowerCase());
       }
 
       x = cook(x);
@@ -11493,7 +11495,7 @@
   var dataTypes = {};
   var coreDataTypes = index$31;
   lodash_foreach(Object.keys(coreDataTypes), function (key) {
-    var compName = key.replace(/^\.\//, '').replace(/\.js/, '');
+    var compName = key.replace(/^\.\//, "").replace(/\.js/, "");
     dataTypes[compName] = coreDataTypes[key].default;
   });
   var VueGoodTable = {
@@ -11515,7 +11517,7 @@
         staticClass: "vgt-loading vgt-center-align"
       }, [_vm._t("loadingContent", [_c('span', {
         staticClass: "vgt-loading__content"
-      }, [_vm._v(" Loading... ")])])], 2) : _vm._e(), _vm._v(" "), _c('div', {
+      }, [_vm._v("Loading...")])])], 2) : _vm._e(), _vm._v(" "), _c('div', {
         staticClass: "vgt-inner-wrap",
         class: {
           'is-loading': _vm.isTableLoading
@@ -11576,7 +11578,7 @@
             _vm.unselectAllInternal(true);
           }
         }
-      }, [_vm._v(" " + _vm._s(_vm.clearSelectionText) + " ")]), _vm._v(" "), _c('div', {
+      }, [_vm._v(_vm._s(_vm.clearSelectionText))]), _vm._v(" "), _c('div', {
         staticClass: "vgt-selection-info-row__actions vgt-pull-right"
       }, [_vm._t("selected-row-actions")], 2)]) : _vm._e(), _vm._v(" "), _c('div', {
         class: {
@@ -11620,8 +11622,7 @@
       })]) : _vm._e()]), _vm._v(" "), _c('div', {
         class: {
           'vgt-responsive': _vm.responsive
-        },
-        style: _vm.wrapperStyles
+        }
       }, [_c('table', {
         ref: "table",
         class: _vm.tableStyleClasses
@@ -11655,7 +11656,12 @@
             })];
           }
         }])
-      }), _vm._v(" "), _vm._l(_vm.paginated, function (headerRow, index) {
+      }), _vm._v(" "), _c('simplebar', {
+        style: _vm.wrapperStyles,
+        attrs: {
+          "data-simplebar-auto-hide": "true"
+        }
+      }, _vm._l(_vm.paginated, function (headerRow, index) {
         return _c('tbody', {
           key: index
         }, [_vm.groupHeaderOnTop ? _c('vgt-header-row', {
@@ -11699,7 +11705,7 @@
             }
           }, [_vm.lineNumbers ? _c('th', {
             staticClass: "line-numbers"
-          }, [_vm._v(" " + _vm._s(_vm.getCurrentIndex(index)) + " ")]) : _vm._e(), _vm._v(" "), _vm.selectable ? _c('th', {
+          }, [_vm._v(_vm._s(_vm.getCurrentIndex(index)))]) : _vm._e(), _vm._v(" "), _vm.selectable ? _c('th', {
             staticClass: "vgt-checkbox-col",
             on: {
               "click": function click($event) {
@@ -11725,7 +11731,7 @@
                   _vm.onCellClicked(row, column, index, $event);
                 }
               }
-            }, [_vm._t("table-row", [!column.html ? _c('span', [_vm._v(" " + _vm._s(_vm.collectFormatted(row, column)) + " ")]) : _vm._e(), _vm._v(" "), column.html ? _c('span', {
+            }, [_vm._t("table-row", [!column.html ? _c('span', [_vm._v(_vm._s(_vm.collectFormatted(row, column)))]) : _vm._e(), _vm._v(" "), column.html ? _c('span', {
               domProps: {
                 "innerHTML": _vm._s(_vm.collect(row, column.field))
               }
@@ -11758,13 +11764,15 @@
             }
           }])
         }) : _vm._e()], 2);
-      }), _vm._v(" "), _vm.showEmptySlot ? _c('tbody', [_c('tr', [_c('td', {
+      })), _vm._v(" "), _vm.showEmptySlot ? _c('tbody', [_c('tr', [_c('td', {
         attrs: {
           "colspan": _vm.fullColspan
         }
       }, [_vm._t("emptystate", [_c('div', {
         staticClass: "vgt-center-align vgt-text-disabled"
-      }, [_vm._v(" No data for table ")])])], 2)])]) : _vm._e()], 2)]), _vm._v(" "), _vm.paginate && _vm.paginateOnBottom ? _vm._t("pagination-bottom", [_c('vgt-pagination', {
+      }, [_vm._v("No data for table")])])], 2)])]) : _vm._e()], 1)]), _vm._v(" "), _c('div', {
+        staticClass: "vgt-wrap__actions-footer"
+      }, [_vm._t("table-actions-bottom")], 2), _vm._v(" "), _vm.paginate && _vm.paginateOnBottom ? _vm._t("pagination-bottom", [_c('vgt-pagination', {
         ref: "paginationBottom",
         attrs: {
           "perPage": _vm.perPage,
@@ -11791,7 +11799,7 @@
       }) : _vm._e()], 2)]);
     },
     staticRenderFns: [],
-    name: 'vue-good-table',
+    name: "vue-good-table",
     props: {
       isLoading: {
         default: false,
@@ -11806,16 +11814,16 @@
         type: Boolean
       },
       theme: {
-        default: ''
+        default: ""
       },
       mode: {
-        default: 'local'
+        default: "local"
       },
       // could be remote
       totalRows: {},
       // required if mode = 'remote'
       styleClass: {
-        default: 'vgt-table bordered'
+        default: "vgt-table bordered"
       },
       columns: {},
       rows: {},
@@ -11843,9 +11851,9 @@
         default: function _default() {
           return {
             enabled: false,
-            selectionInfoClass: '',
-            selectionText: 'rows selected',
-            clearSelectionText: 'clear'
+            selectionInfoClass: "",
+            selectionText: "rows selected",
+            clearSelectionText: "clear"
           };
         }
       },
@@ -11865,9 +11873,9 @@
             enabled: false,
             perPage: 10,
             perPageDropdown: null,
-            position: 'bottom',
+            position: "bottom",
             dropdownAllowAll: true,
-            mode: 'records' // or pages
+            mode: "records" // or pages
 
           };
         }
@@ -11879,7 +11887,7 @@
             trigger: null,
             externalQuery: null,
             searchFn: null,
-            placeholder: 'Search Table'
+            placeholder: "Search Table"
           };
         }
       }
@@ -11889,19 +11897,19 @@
         // loading state for remote mode
         tableLoading: false,
         // text options
-        nextText: 'Next',
-        prevText: 'Prev',
-        rowsPerPageText: 'Rows per page',
-        ofText: 'of',
-        allText: 'All',
-        pageText: 'page',
+        nextText: "Next",
+        prevText: "Prev",
+        rowsPerPageText: "Rows per page",
+        ofText: "of",
+        allText: "All",
+        pageText: "page",
         // internal select options
         selectable: false,
         selectOnCheckboxOnly: false,
         selectAllByPage: true,
-        selectionInfoClass: '',
-        selectionText: 'rows selected',
-        clearSelectionText: 'clear',
+        selectionInfoClass: "",
+        selectionText: "rows selected",
+        clearSelectionText: "clear",
         // internal sort options
         sortable: true,
         defaultSortBy: null,
@@ -11910,7 +11918,7 @@
         searchTrigger: null,
         externalSearchQuery: null,
         searchFn: null,
-        searchPlaceholder: 'Search Table',
+        searchPlaceholder: "Search Table",
         // internal pagination options
         perPage: null,
         paginate: false,
@@ -11918,12 +11926,12 @@
         paginateOnBottom: true,
         customRowsPerPageDropdown: [],
         paginateDropdownAllowAll: true,
-        paginationMode: 'records',
+        paginationMode: "records",
         currentPage: 1,
         currentPerPage: 10,
         sortColumn: -1,
-        sortType: 'asc',
-        globalSearchTerm: '',
+        sortType: "asc",
+        globalSearchTerm: "",
         filteredRows: [],
         columnFilters: {},
         forceSearch: false,
@@ -11975,7 +11983,7 @@
         immediate: true
       },
       selectedRows: function selectedRows() {
-        this.$emit('on-selected-rows-change', {
+        this.$emit("on-selected-rows-change", {
           selectedRows: this.selectedRows
         });
       }
@@ -11983,19 +11991,18 @@
     computed: {
       wrapperStyles: function wrapperStyles() {
         return {
-          overflow: 'scroll-y',
-          maxHeight: this.maxHeight ? this.maxHeight : 'auto'
+          maxHeight: this.maxHeight ? this.maxHeight : "auto"
         };
       },
       hasHeaderRowTemplate: function hasHeaderRowTemplate() {
-        return !!this.$slots['table-header-row'] || !!this.$scopedSlots['table-header-row'];
+        return !!this.$slots["table-header-row"] || !!this.$scopedSlots["table-header-row"];
       },
       isTableLoading: function isTableLoading() {
         return this.isLoading || this.tableLoading;
       },
       showEmptySlot: function showEmptySlot() {
         if (!this.paginated.length) return true;
-        if (this.paginated[0].label === 'no groups' && !this.paginated[0].children.length) return true;
+        if (this.paginated[0].label === "no groups" && !this.paginated[0].children.length) return true;
         return false;
       },
       allSelected: function allSelected() {
@@ -12049,7 +12056,7 @@
         return fullColspan;
       },
       groupHeaderOnTop: function groupHeaderOnTop() {
-        if (this.groupOptions && this.groupOptions.enabled && this.groupOptions.headerPosition && this.groupOptions.headerPosition === 'bottom') {
+        if (this.groupOptions && this.groupOptions.enabled && this.groupOptions.headerPosition && this.groupOptions.headerPosition === "bottom") {
           return false;
         }
 
@@ -12058,7 +12065,7 @@
         return false;
       },
       groupHeaderOnBottom: function groupHeaderOnBottom() {
-        if (this.groupOptions && this.groupOptions.enabled && this.groupOptions.headerPosition && this.groupOptions.headerPosition === 'bottom') {
+        if (this.groupOptions && this.groupOptions.enabled && this.groupOptions.headerPosition && this.groupOptions.headerPosition === "bottom") {
           return true;
         }
 
@@ -12088,11 +12095,11 @@
       },
       //
       globalSearchAllowed: function globalSearchAllowed() {
-        if (this.searchEnabled && !!this.globalSearchTerm && this.searchTrigger !== 'enter') {
+        if (this.searchEnabled && !!this.globalSearchTerm && this.searchTrigger !== "enter") {
           return true;
         }
 
-        if (this.externalSearchQuery != null && this.searchTrigger !== 'enter') {
+        if (this.externalSearchQuery != null && this.searchTrigger !== "enter") {
           return true;
         }
 
@@ -12112,7 +12119,7 @@
         // we only process rows when mode is local
         var computedRows = this.filteredRows;
 
-        if (this.mode === 'remote') {
+        if (this.mode === "remote") {
           return computedRows;
         } // take care of the global filter here also
 
@@ -12152,7 +12159,7 @@
             });
           }); // this is where we emit on search
 
-          this.$emit('on-search', {
+          this.$emit("on-search", {
             searchTerm: this.searchTerm,
             rowCount: filteredRows.length
           }); // here we need to reconstruct the nested structure
@@ -12161,7 +12168,7 @@
           computedRows = [];
           lodash_foreach(this.filteredRows, function (headerRow) {
             var i = headerRow.vgt_header_id;
-            var children = lodash_filter(filteredRows, ['vgt_id', i]);
+            var children = lodash_filter(filteredRows, ["vgt_id", i]);
 
             if (children.length) {
               var newHeaderRow = lodash_clonedeep(headerRow);
@@ -12174,7 +12181,7 @@
 
         if (this.sortColumn !== -1 && this.isSortableColumn(this.sortColumn) && ( // if search trigger is enter then we only sort
         // when enter is hit
-        this.searchTrigger !== 'enter' || this.sortChanged)) {
+        this.searchTrigger !== "enter" || this.sortChanged)) {
           this.sortChanged = false;
           lodash_foreach(computedRows, function (cRows) {
             cRows.children.sort(function (x, y) {
@@ -12188,20 +12195,20 @@
 
               var sortFn = _this.columns[_this.sortColumn].sortFn;
 
-              if (sortFn && typeof sortFn === 'function') {
-                return sortFn(xvalue, yvalue, _this.columns[_this.sortColumn], x, y) * (_this.sortType === 'desc' ? -1 : 1);
+              if (sortFn && typeof sortFn === "function") {
+                return sortFn(xvalue, yvalue, _this.columns[_this.sortColumn], x, y) * (_this.sortType === "desc" ? -1 : 1);
               } // built in sort
 
 
               var typeDef = _this.typedColumns[_this.sortColumn].typeDef;
-              return typeDef.compare(xvalue, yvalue, _this.columns[_this.sortColumn]) * (_this.sortType === 'desc' ? -1 : 1);
+              return typeDef.compare(xvalue, yvalue, _this.columns[_this.sortColumn]) * (_this.sortType === "desc" ? -1 : 1);
             });
           });
         } // if the filtering is event based, we need to maintain filter
         // rows
 
 
-        if (this.searchTrigger === 'enter') {
+        if (this.searchTrigger === "enter") {
           this.filteredRows = computedRows;
         }
 
@@ -12210,7 +12217,7 @@
       paginated: function paginated() {
         if (!this.processedRows.length) return [];
 
-        if (this.mode === 'remote') {
+        if (this.mode === "remote") {
           return this.processedRows;
         } // for every group, extract the child rows
         // to cater to paging
@@ -12247,7 +12254,7 @@
         var reconstructedRows = [];
         lodash_foreach(this.processedRows, function (headerRow) {
           var i = headerRow.vgt_header_id;
-          var children = lodash_filter(paginatedRows, ['vgt_id', i]);
+          var children = lodash_filter(paginatedRows, ["vgt_id", i]);
 
           if (children.length) {
             var newHeaderRow = lodash_clonedeep(headerRow);
@@ -12263,7 +12270,7 @@
 
         if (!this.groupOptions.enabled) {
           nestedRows = this.handleGrouped([{
-            label: 'no groups',
+            label: "no groups",
             children: rows
           }]);
         } else {
@@ -12291,15 +12298,15 @@
         return columns;
       },
       hasRowClickListener: function hasRowClickListener() {
-        return this.$listeners && this.$listeners['on-row-click'];
+        return this.$listeners && this.$listeners["on-row-click"];
       }
     },
     methods: {
       handleSearch: function handleSearch() {
         this.resetTable(); // for remote mode, we need to emit on-search
 
-        if (this.mode === 'remote') {
-          this.$emit('on-search', {
+        if (this.mode === "remote") {
+          this.$emit("on-search", {
             searchTerm: this.searchTerm
           });
         }
@@ -12307,14 +12314,14 @@
       reset: function reset() {
         this.initializeSort();
         this.changePage(1);
-        this.$refs['table-header-primary'].reset(true);
+        this.$refs["table-header-primary"].reset(true);
 
-        if (this.$refs['table-header-secondary']) {
-          this.$refs['table-header-secondary'].reset(true);
+        if (this.$refs["table-header-secondary"]) {
+          this.$refs["table-header-secondary"].reset(true);
         }
       },
       emitSelectedRows: function emitSelectedRows() {
-        this.$emit('on-select-all', {
+        this.$emit("on-select-all", {
           selected: this.selectedRowCount === this.totalRowCount,
           selectedRows: this.selectedRows
         });
@@ -12325,7 +12332,7 @@
         var rows = this.selectAllByPage && !forceAll ? this.paginated : this.filteredRows;
         lodash_foreach(rows, function (headerRow, i) {
           lodash_foreach(headerRow.children, function (row, j) {
-            _this2.$set(row, 'vgtSelected', false);
+            _this2.$set(row, "vgtSelected", false);
           });
         });
         this.emitSelectedRows();
@@ -12341,7 +12348,7 @@
         var rows = this.selectAllByPage ? this.paginated : this.filteredRows;
         lodash_foreach(rows, function (headerRow) {
           lodash_foreach(headerRow.children, function (row) {
-            _this3.$set(row, 'vgtSelected', true);
+            _this3.$set(row, "vgtSelected", true);
           });
         });
         this.emitSelectedRows();
@@ -12350,7 +12357,7 @@
         if (this.paginationOptions.enabled) {
           var paginationWidget = this.$refs.paginationBottom;
 
-          if (this.paginationOptions.position === 'top') {
+          if (this.paginationOptions.position === "top") {
             paginationWidget = this.$refs.paginationTop;
           }
 
@@ -12373,18 +12380,18 @@
         this.currentPage = pagination.currentPage;
         var pageChangedEvent = this.pageChangedEvent();
         pageChangedEvent.prevPage = pagination.prevPage;
-        this.$emit('on-page-change', pageChangedEvent);
+        this.$emit("on-page-change", pageChangedEvent);
 
-        if (this.mode === 'remote') {
+        if (this.mode === "remote") {
           this.tableLoading = true;
         }
       },
       perPageChanged: function perPageChanged(pagination) {
         this.currentPerPage = pagination.currentPerPage;
         var perPageChangedEvent = this.pageChangedEvent();
-        this.$emit('on-per-page-change', perPageChangedEvent);
+        this.$emit("on-per-page-change", perPageChangedEvent);
 
-        if (this.mode === 'remote') {
+        if (this.mode === "remote") {
           this.tableLoading = true;
         }
       },
@@ -12392,13 +12399,13 @@
         if (!this.isSortableColumn(index)) return;
 
         if (this.sortColumn === index) {
-          this.sortType = this.sortType === 'asc' ? 'desc' : 'asc';
+          this.sortType = this.sortType === "asc" ? "desc" : "asc";
         } else {
-          this.sortType = 'asc';
+          this.sortType = "asc";
           this.sortColumn = index;
         }
 
-        this.$emit('on-sort-change', {
+        this.$emit("on-sort-change", {
           sortType: this.sortType,
           columnIndex: this.sortColumn
         }); // every time we change sort we need to reset to page 1
@@ -12406,7 +12413,7 @@
         this.changePage(1); // if the mode is remote, we don't need to do anything
         // after this. just set table loading to true
 
-        if (this.mode === 'remote') {
+        if (this.mode === "remote") {
           this.tableLoading = true;
           return;
         }
@@ -12415,8 +12422,8 @@
       },
       // checkbox click should always do the following
       onCheckboxClicked: function onCheckboxClicked(row, index, event) {
-        this.$set(row, 'vgtSelected', !row.vgtSelected);
-        this.$emit('on-row-click', {
+        this.$set(row, "vgtSelected", !row.vgtSelected);
+        this.$emit("on-row-click", {
           row: row,
           pageIndex: index,
           selected: !!row.vgtSelected,
@@ -12424,7 +12431,7 @@
         });
       },
       onRowDoubleClicked: function onRowDoubleClicked(row, index, event) {
-        this.$emit('on-row-dblclick', {
+        this.$emit("on-row-dblclick", {
           row: row,
           pageIndex: index,
           selected: !!row.vgtSelected,
@@ -12433,10 +12440,10 @@
       },
       onRowClicked: function onRowClicked(row, index, event) {
         if (this.selectable && !this.selectOnCheckboxOnly) {
-          this.$set(row, 'vgtSelected', !row.vgtSelected);
+          this.$set(row, "vgtSelected", !row.vgtSelected);
         }
 
-        this.$emit('on-row-click', {
+        this.$emit("on-row-click", {
           row: row,
           pageIndex: index,
           selected: !!row.vgtSelected,
@@ -12444,7 +12451,7 @@
         });
       },
       onCellClicked: function onCellClicked(row, column, rowIndex, event) {
-        this.$emit('on-cell-click', {
+        this.$emit("on-cell-click", {
           row: row,
           column: column,
           rowIndex: rowIndex,
@@ -12452,19 +12459,19 @@
         });
       },
       onMouseenter: function onMouseenter(row, index) {
-        this.$emit('on-row-mouseenter', {
+        this.$emit("on-row-mouseenter", {
           row: row,
           pageIndex: index
         });
       },
       onMouseleave: function onMouseleave(row, index) {
-        this.$emit('on-row-mouseleave', {
+        this.$emit("on-row-mouseleave", {
           row: row,
           pageIndex: index
         });
       },
       searchTableOnEnter: function searchTableOnEnter() {
-        if (this.searchTrigger === 'enter') {
+        if (this.searchTrigger === "enter") {
           this.handleSearch(); // we reset the filteredRows here because
           // we want to search across everything.
 
@@ -12474,7 +12481,7 @@
         }
       },
       searchTableOnKeyUp: function searchTableOnKeyUp() {
-        if (this.searchTrigger !== 'enter') {
+        if (this.searchTrigger !== "enter") {
           this.handleSearch();
         }
       },
@@ -12491,10 +12498,10 @@
         // utility function to get nested property
         function dig(obj, selector) {
           var result = obj;
-          var splitter = selector.split('.');
+          var splitter = selector.split(".");
 
           for (var i = 0; i < splitter.length; i++) {
-            if (typeof result === 'undefined' || result === null) {
+            if (typeof result === "undefined" || result === null) {
               return undefined;
             }
 
@@ -12504,8 +12511,8 @@
           return result;
         }
 
-        if (typeof field === 'function') return field(obj);
-        if (typeof field === 'string') return dig(obj, field);
+        if (typeof field === "function") return field(obj);
+        if (typeof field === "string") return dig(obj, field);
         return undefined;
       },
       collectFormatted: function collectFormatted(obj, column) {
@@ -12518,10 +12525,10 @@
           value = this.collect(obj, column.field);
         }
 
-        if (value === undefined) return ''; // if user has supplied custom formatter,
+        if (value === undefined) return ""; // if user has supplied custom formatter,
         // use that here
 
-        if (column.formatFn && typeof column.formatFn === 'function') {
+        if (column.formatFn && typeof column.formatFn === "function") {
           return column.formatFn(value);
         } // lets format the resultant data
 
@@ -12553,7 +12560,7 @@
       // Check if a column is sortable.
       isSortableColumn: function isSortableColumn(index) {
         var sortable = this.columns[index].sortable;
-        var isSortable = typeof sortable === 'boolean' ? sortable : this.sortable;
+        var isSortable = typeof sortable === "boolean" ? sortable : this.sortable;
         return isSortable;
       },
       // Get classes for the given column index & element.
@@ -12565,14 +12572,14 @@
         var isRight = typeDef.isRight;
         if (this.rtl) isRight = true;
         var classes = {
-          'vgt-right-align': isRight,
-          'vgt-left-align': !isRight
+          "vgt-right-align": isRight,
+          "vgt-left-align": !isRight
         }; // for td we need to check if value is
         // a function.
 
-        if (typeof custom === 'function') {
+        if (typeof custom === "function") {
           classes[custom(row)] = true;
-        } else if (typeof custom === 'string') {
+        } else if (typeof custom === "string") {
           classes[custom] = true;
         }
 
@@ -12595,7 +12602,7 @@
           // to 1
           // if the mode is remote, we only need to reset, if this is
           // being called from filter, not when rows are changing
-          if (this.mode !== 'remote' || fromFilter) {
+          if (this.mode !== "remote" || fromFilter) {
             this.changePage(1);
           } // we need to emit an event and that's that.
           // but this only needs to be invoked if filter is changing
@@ -12603,13 +12610,13 @@
 
 
           if (fromFilter) {
-            this.$emit('on-column-filter', {
+            this.$emit("on-column-filter", {
               columnFilters: this.columnFilters
             });
           } // if mode is remote, we don't do any filtering here.
 
 
-          if (this.mode === 'remote') {
+          if (this.mode === "remote") {
             if (fromFilter) {
               this.tableLoading = true;
             } else {
@@ -12627,7 +12634,7 @@
               computedRows = lodash_foreach(computedRows, function (headerRow) {
                 var newChildren = headerRow.children.filter(function (row) {
                   // If column has a custom filter, use that.
-                  if (col.filterOptions && typeof col.filterOptions.filterFn === 'function') {
+                  if (col.filterOptions && typeof col.filterOptions.filterFn === "function") {
                     return col.filterOptions.filterFn(_this4.collect(row, col.field), _this4.columnFilters[col.field]);
                   } // Otherwise Use default filters
 
@@ -12652,11 +12659,11 @@
         return (this.currentPage - 1) * this.currentPerPage + index + 1;
       },
       getRowStyleClass: function getRowStyleClass(row) {
-        var classes = '';
-        if (this.hasRowClickListener) classes += 'clickable';
+        var classes = "";
+        if (this.hasRowClickListener) classes += "clickable";
         var rowStyleClasses;
 
-        if (typeof this.rowStyleClass === 'function') {
+        if (typeof this.rowStyleClass === "function") {
           rowStyleClasses = this.rowStyleClass(row);
         } else {
           rowStyleClasses = this.rowStyleClass;
@@ -12693,7 +12700,7 @@
 
           if (col.field === this.defaultSortBy.field) {
             this.sortColumn = index;
-            this.sortType = this.defaultSortBy.type || 'asc';
+            this.sortType = this.defaultSortBy.type || "asc";
             this.sortChanged = true;
             break;
           }
@@ -12717,19 +12724,19 @@
             setCurrentPage = _this$paginationOptio.setCurrentPage,
             mode = _this$paginationOptio.mode;
 
-        if (typeof enabled === 'boolean') {
+        if (typeof enabled === "boolean") {
           this.paginate = enabled;
         }
 
-        if (typeof perPage === 'number') {
+        if (typeof perPage === "number") {
           this.perPage = perPage;
         }
 
-        if (position === 'top') {
+        if (position === "top") {
           this.paginateOnTop = true; // default is false
 
           this.paginateOnBottom = false; // default is true
-        } else if (position === 'both') {
+        } else if (position === "both") {
           this.paginateOnTop = true;
           this.paginateOnBottom = true;
         }
@@ -12738,39 +12745,39 @@
           this.customRowsPerPageDropdown = perPageDropdown;
         }
 
-        if (typeof dropdownAllowAll === 'boolean') {
+        if (typeof dropdownAllowAll === "boolean") {
           this.paginateDropdownAllowAll = dropdownAllowAll;
         }
 
-        if (typeof mode === 'string') {
+        if (typeof mode === "string") {
           this.paginationMode = mode;
         }
 
-        if (typeof nextLabel === 'string') {
+        if (typeof nextLabel === "string") {
           this.nextText = nextLabel;
         }
 
-        if (typeof prevLabel === 'string') {
+        if (typeof prevLabel === "string") {
           this.prevText = prevLabel;
         }
 
-        if (typeof rowsPerPageLabel === 'string') {
+        if (typeof rowsPerPageLabel === "string") {
           this.rowsPerPageText = rowsPerPageLabel;
         }
 
-        if (typeof ofLabel === 'string') {
+        if (typeof ofLabel === "string") {
           this.ofText = ofLabel;
         }
 
-        if (typeof pageLabel === 'string') {
+        if (typeof pageLabel === "string") {
           this.pageText = pageLabel;
         }
 
-        if (typeof allLabel === 'string') {
+        if (typeof allLabel === "string") {
           this.allText = allLabel;
         }
 
-        if (typeof setCurrentPage === 'number') {
+        if (typeof setCurrentPage === "number") {
           setTimeout(function () {
             _this5.changePage(setCurrentPage);
           }, 500);
@@ -12784,23 +12791,23 @@
             searchFn = _this$searchOptions.searchFn,
             placeholder = _this$searchOptions.placeholder;
 
-        if (typeof enabled === 'boolean') {
+        if (typeof enabled === "boolean") {
           this.searchEnabled = enabled;
         }
 
-        if (trigger === 'enter') {
+        if (trigger === "enter") {
           this.searchTrigger = trigger;
         }
 
-        if (typeof externalQuery === 'string') {
+        if (typeof externalQuery === "string") {
           this.externalSearchQuery = externalQuery;
         }
 
-        if (typeof searchFn === 'function') {
+        if (typeof searchFn === "function") {
           this.searchFn = searchFn;
         }
 
-        if (typeof placeholder === 'string') {
+        if (typeof placeholder === "string") {
           this.searchPlaceholder = placeholder;
         }
       },
@@ -12809,11 +12816,11 @@
             enabled = _this$sortOptions.enabled,
             initialSortBy = _this$sortOptions.initialSortBy;
 
-        if (typeof enabled === 'boolean') {
+        if (typeof enabled === "boolean") {
           this.sortable = enabled;
         }
 
-        if (_typeof(initialSortBy) === 'object') {
+        if (_typeof(initialSortBy) === "object") {
           this.defaultSortBy = initialSortBy;
           this.handleDefaultSort();
         }
@@ -12827,27 +12834,27 @@
             selectOnCheckboxOnly = _this$selectOptions.selectOnCheckboxOnly,
             selectAllByPage = _this$selectOptions.selectAllByPage;
 
-        if (typeof enabled === 'boolean') {
+        if (typeof enabled === "boolean") {
           this.selectable = enabled;
         }
 
-        if (typeof selectOnCheckboxOnly === 'boolean') {
+        if (typeof selectOnCheckboxOnly === "boolean") {
           this.selectOnCheckboxOnly = selectOnCheckboxOnly;
         }
 
-        if (typeof selectAllByPage === 'boolean') {
+        if (typeof selectAllByPage === "boolean") {
           this.selectAllByPage = selectAllByPage;
         }
 
-        if (typeof selectionInfoClass === 'string') {
+        if (typeof selectionInfoClass === "string") {
           this.selectionInfoClass = selectionInfoClass;
         }
 
-        if (typeof selectionText === 'string') {
+        if (typeof selectionText === "string") {
           this.selectionText = selectionText;
         }
 
-        if (typeof clearSelectionText === 'string') {
+        if (typeof clearSelectionText === "string") {
           this.clearSelectionText = clearSelectionText;
         }
       },
@@ -12864,10 +12871,11 @@
       }
     },
     components: {
-      'vgt-pagination': VgtPagination,
-      'vgt-global-search': VgtGlobalSearch,
-      'vgt-header-row': VgtHeaderRow,
-      'vgt-table-header': VgtTableHeader
+      simplebar: simplebar,
+      "vgt-pagination": VgtPagination,
+      "vgt-global-search": VgtGlobalSearch,
+      "vgt-header-row": VgtHeaderRow,
+      "vgt-table-header": VgtTableHeader
     }
   };
 
