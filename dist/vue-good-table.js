@@ -15390,9 +15390,12 @@
       }, [_c('table', {
         ref: "table",
         class: _vm.tableStyleClasses
-      }, [!_vm.fixedHeader ? _c("vgt-table-header", {
+      }, [_c("vgt-table-header", {
         ref: "table-header-primary",
         tag: "thead",
+        staticStyle: {
+          "display": "none"
+        },
         attrs: {
           "columns": _vm.columns,
           "line-numbers": _vm.lineNumbers,
@@ -15418,7 +15421,7 @@
             })];
           }
         }])
-      }) : _vm._e(), _vm._v(" "), _vm._l(_vm.paginated, function (headerRow, index) {
+      }), _vm._v(" "), _vm._l(_vm.paginated, function (headerRow, index) {
         return _c('tbody', {
           key: index
         }, [_vm.groupHeaderOnTop ? _c('vgt-header-row', {

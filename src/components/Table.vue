@@ -95,7 +95,6 @@
           <table ref="table" :class="tableStyleClasses">
             <!-- Table header -->
             <thead
-              v-if="!fixedHeader"
               is="vgt-table-header"
               ref="table-header-primary"
               @on-toggle-select-all="toggleSelectAll"
@@ -111,6 +110,7 @@
               :typed-columns="typedColumns"
               :getClasses="getClasses"
               :searchEnabled="searchEnabled"
+              style="display: none;"
             >
               <template slot="table-column" slot-scope="props">
                 <slot name="table-column" :column="props.column">
